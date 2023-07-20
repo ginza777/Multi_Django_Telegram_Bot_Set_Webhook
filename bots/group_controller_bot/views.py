@@ -16,7 +16,7 @@ from telegram.ext import (
 )
 
 from .state import state
-from .telegrambot import get_language, start
+from .telegrambot import get_language, start, main
 
 
 def setup(token):
@@ -36,11 +36,14 @@ def setup(token):
     )
 
     states = {
-        state.MAIN: [
-            MessageHandler(Filters.all, start),
-        ],
         state.LANGUAGE: [
+            CommandHandler("start", start),
             CallbackQueryHandler(get_language),
+            MessageHandler(Filters.text, main),
+        ],
+        state.MAIN: [
+            CommandHandler("start", start),
+            MessageHandler(Filters.text, main),
         ],
     }
     entry_points = [CommandHandler("start", start)]
@@ -63,7 +66,7 @@ def handle_telegram_webhook(request):
     update = Update.de_json(json.loads(request.body.decode("utf-8")), bot)
     dp = setup(token)
     try:
-        if update.message.chat.type == "private":
+        if update:
             dp.process_update(update)
         else:
             if update.message.reply_to_message:

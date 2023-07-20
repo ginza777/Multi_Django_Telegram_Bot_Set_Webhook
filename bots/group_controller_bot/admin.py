@@ -1,0 +1,1 @@
+from bots.group_controller_bot.models import TelegramProfile

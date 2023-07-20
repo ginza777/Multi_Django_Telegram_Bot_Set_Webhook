@@ -2,6 +2,24 @@ from django.utils.translation import gettext_lazy as _
 from telegram import KeyboardButton, ReplyKeyboardMarkup
 
 
+def main_buttons():
+    return ReplyKeyboardMarkup(
+        [
+            [str(_("Election Stations"))],
+            [str(_("F.A.Q"))],
+            [str(_("Send an appeal"))],
+            [str(_("Change language"))],
+            [
+                str(_("Useful information")),
+            ],
+        ]
+    )
+
+
+
+
+
+
 def request_phone_button():
     return ReplyKeyboardMarkup(
         [
@@ -38,16 +56,3 @@ def back_button():
         resize_keyboard=True,
     )
 
-
-def main_buttons():
-    return ReplyKeyboardMarkup(
-        [
-            [str(_("Election Stations"))],
-            [str(_("F.A.Q"))],
-            [str(_("Send an appeal"))],
-            [str(_("Change language"))],
-            [
-                str(_("Useful information")),
-            ],
-        ]
-    )

@@ -16,7 +16,7 @@ from telegram.ext import (
 )
 
 from .state import state
-from .telegrambot import get_language, start, main
+from .telegrambot import *
 
 
 def setup(token):
@@ -45,6 +45,11 @@ def setup(token):
             CommandHandler("start", start),
             MessageHandler(Filters.text, main),
         ],
+        state.ADMIN_PANEL: [
+            CommandHandler("start", start),
+            MessageHandler(Filters.text, admin_panel),
+
+        ]
     }
     entry_points = [CommandHandler("start", start)]
     fallbacks = [CommandHandler("start", start)]
